@@ -13,6 +13,13 @@ class SideMenuTitle extends StatelessWidget {
   final VoidCallback press;
   final bool isActived;
 
+  void navigateToScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => menu.destination),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +44,9 @@ class SideMenuTitle extends StatelessWidget {
               ),
             ),
             ListTile(
-              onTap: press,
+              onTap: () {
+                navigateToScreen(context);
+              },
               leading: SizedBox(
                 height: 34,
                 width: 34,
