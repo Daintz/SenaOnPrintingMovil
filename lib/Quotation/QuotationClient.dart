@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:senaonprintingmovil/visibilityQuotation.dart';
+import 'package:senaonprintingmovil/Quotation/visibilityQuotation.dart';
 
 
 class QuotationClient extends StatelessWidget {
