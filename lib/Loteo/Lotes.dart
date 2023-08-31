@@ -8,7 +8,8 @@ class Lotes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Lotes')),
+        appBar: AppBar(title: const Text('Compra insumos'),  backgroundColor: Color.fromARGB(255, 0, 49, 77), // Color RGB personalizado
+        ),
         body: ListView.separated(
           itemCount: LotesList.length,
           separatorBuilder: (BuildContext context, int index) =>
@@ -23,10 +24,16 @@ class Lotes extends StatelessWidget {
                       '${LotesList[index]['bodega']} / ${LotesList[index]['FechaInicio']}'),
                   ElevatedButton(
                       onPressed: () {
+                        
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => LoteoInsumos()));
                       },
-                      child: Text('Ver insumos'))
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 0, 49, 77)
+                      ),
+                      child: const Text(
+                        'Ver insumos'
+                        ,style: TextStyle(fontSize: 18),) )
                 ],
               ),
             );
