@@ -10,19 +10,18 @@ class InsumoDetalle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-         appBar: AppBar(title: const Text('Loteo Insumos')),
+         appBar: AppBar(title: const Text('Detalle de insumos'),backgroundColor: Color.fromARGB(255, 0, 49, 77), // Color RGB personalizado
+         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-             
               SizedBox(height: 10), // Espacio entre las filas
               Row(
                 children: [
                   Expanded(child: Text('Nombre:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17))),
                   Expanded(child: Text('${insume['Nombre']}')),
                 ],
-                
               ),
               Row(
                 children: [
@@ -76,6 +75,6 @@ class InsumoDetalle extends StatelessWidget {
           ),
         )
     );
-  
+
   }
 }

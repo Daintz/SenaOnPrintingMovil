@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './Pum.dart';
-import './Lotes.dart';
+import 'Loteo/Lotes.dart';
 import 'package:senaonprintingmovil/Client/Client.dart';
 import 'package:senaonprintingmovil/OrderProduction/OrderProduction.dart';
 import 'package:senaonprintingmovil/Quotation/QuotationClient.dart';
