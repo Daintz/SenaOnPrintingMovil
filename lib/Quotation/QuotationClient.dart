@@ -3,19 +3,20 @@ import 'package:senaonprintingmovil/Quotation/visibilityQuotation.dart';
 
 
 class QuotationClient extends StatelessWidget {
-  const QuotationClient();
+  QuotationClient();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cotizaciones'),
+        title: const Text('Cotizaciones'),
+        backgroundColor: Color.fromARGB(255, 0, 49, 77), // Color RGB personalizado
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             DataTable(
-              columns: [
+              columns:const [
                 DataColumn(label: Text('Código')),
                 DataColumn(label: Text('Fecha orden')),
                 DataColumn(label: Text('Cliente')),
@@ -23,11 +24,11 @@ class QuotationClient extends StatelessWidget {
               ],
               rows: [
                 DataRow(cells: [
-                  DataCell(Text('0001')),
-                  DataCell(Text('2023-08-24')),
-                  DataCell(Text('JHON')),
+                  const DataCell(Text('0001')),
+                  const DataCell(Text('2023-08-24')),
+                  const DataCell(Text('JHON')),
                   DataCell(IconButton(
-                    icon: Icon(Icons.visibility_rounded),
+                    icon: const Icon(Icons.visibility_rounded),
                     onPressed: () {
                        Navigator.push(
             context, MaterialPageRoute(
@@ -36,11 +37,11 @@ class QuotationClient extends StatelessWidget {
                   )),
                 ]),
                 DataRow(cells: [
-                  DataCell(Text('0002')),
-                  DataCell(Text('2023-08-25')),
-                  DataCell(Text('ROJAS')),
+                  const DataCell(Text('0002')),
+                  const DataCell(Text('2023-08-25')),
+                  const DataCell(Text('ROJAS')),
                   DataCell(IconButton(
-                    icon: Icon(Icons.visibility_rounded),
+                    icon: const Icon(Icons.visibility_rounded),
                     onPressed: () {
                       // Lógica para manejar el evento del botón
                     },
