@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senaonprintingmovil/Client/Client.dart';
+import 'package:senaonprintingmovil/OrderProduction/OrderProduction.dart';
 import 'package:senaonprintingmovil/Quotation/QuotationClient.dart';
 
 void main() {
@@ -10,13 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
         '/clients': (context) => Clients(),
         '/quotation': (context) => QuotationClient(),
+        '/order_production': (context) => OrderProduction(),
         //Aqui se agregan la ruta a donde va a ir el boton
       },
     );
@@ -115,7 +116,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-    Widget _buildButtonWithIcon(
+  Widget _buildButtonWithIcon(
     BuildContext context,
     IconData icon,
     String label,
@@ -132,16 +133,15 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, route);
-          },
-          icon: Icon(
-            icon,
-            size: 50,
-            color: Colors.black,
-          )
-          ),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, route);
+              },
+              icon: Icon(
+                icon,
+                size: 50,
+                color: Colors.black,
+              )),
           SizedBox(height: 10),
           Text(
             label,
@@ -157,4 +157,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
