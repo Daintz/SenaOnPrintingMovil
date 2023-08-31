@@ -1,0 +1,22 @@
+List LotesList = [
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+{"FechaInicio":"30/08/2023", "FehaVencimiento":"30/08/2024", "bodega":"bodega 1"},
+
+];
