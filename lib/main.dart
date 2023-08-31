@@ -1,24 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Loteo/Lotes.dart';
-import 'package:senaonprintingmovil/Client/Client.dart';
-import 'package:senaonprintingmovil/OrderProduction/OrderProduction.dart';
-import 'package:senaonprintingmovil/Quotation/QuotationClient.dart';
-
-Map<int, Color> color =
-{
-  50:  const Color(0xff82def0),
-  100: Color(0xFF69BED8),
-  200: const Color(0xff5fafc7),
-  300: Color(0xFF4792AF),
-  400: const Color(0xff3e839e),
-  500: const Color(0xff205975),
-  600: const Color(0xff00324D),
-  700: Color(0xFF183E52),
-  800: Color(0xFF12394E),
-  900: const Color(0xff00324D),
-};
-
-MaterialColor customColor = MaterialColor(0xff00324D, color);
+import 'package:senaonprintingmovil/components/OrderProduction/order_production_view.dart';
+import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
+import 'components/Loteo/Lotes.dart';
+import 'package:senaonprintingmovil/components/Client/clients_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,8 +16,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeScreen(),
-        '/clients': (context) => Clients(),
-        '/quotation': (context) => QuotationClient(),
+        '/clients': (context) => ClientsView(),
+        '/quotation': (context) => QuotationClientView(),
         '/order_production': (context) => OrderProduction(),
         '/loteo': (context) => Lotes(),
         //Aqui se agregan la ruta a donde va a ir el boton
