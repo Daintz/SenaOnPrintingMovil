@@ -4,23 +4,42 @@ import 'package:senaonprintingmovil/components/Loteo/purchase_supply_view.dart';
 import 'package:senaonprintingmovil/components/OrderProduction/order_production_view.dart';
 import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
 import 'package:senaonprintingmovil/components/Client/clients_view.dart';
+import 'components/Products/products_view.dart';
+import 'login.dart';
 
 void main() {
   runApp(MyApp());
 }
-
+Map<int, Color> color =
+{
+  50:  const Color(0xff82def0),
+  100: Color(0xFF69BED8),
+  200: const Color(0xff5fafc7),
+  300: Color(0xFF4792AF),
+  400: const Color(0xff3e839e),
+  500: const Color(0xff205975),
+  600: const Color(0xff00324D),
+  700: Color(0xFF183E52),
+  800: Color(0xFF12394E),
+  900: const Color(0xff00324D),
+};
 class MyApp extends StatelessWidget {
+MaterialColor customColor = MaterialColor(0xff00324D, color);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch:customColor = MaterialColor(0xff00324D, color)),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/Login',
       routes: {
+        '/Login': (context) => Login(),
         '/': (context) => HomeScreen(),
+        //'/menu': (context) => MainScreen(),
         '/clients': (context) => ClientsView(),
         '/quotation': (context) => QuotationClientView(),
         '/order_production': (context) => OrderProduction(),
         '/loteo': (context) => PurchaseSupplyView(),
+        '/products': (context) => ProductsView(),
         '/supply':(context) => InsumoView()
         //Aqui se agregan la ruta a donde va a ir el boton
       },
@@ -42,6 +61,20 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(alignment: Alignment.bottomCenter, backgroundColor: Colors.white),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.output_outlined, color: Colors.red),
+                    SizedBox(width: 10),
+                    const Text("Cerrar Sesion", style: TextStyle(color: Colors.red))
+                  ]
+                )
+              ),
               Image.asset(
                   'images/logo_sena.jpeg',
                   width: 300, // Ancho de la imagen
