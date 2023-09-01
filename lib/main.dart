@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senaonprintingmovil/components/Insumo/insumo_view.dart';
 import 'package:senaonprintingmovil/components/Loteo/purchase_supply_view.dart';
 import 'package:senaonprintingmovil/components/OrderProduction/order_production_view.dart';
 import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
@@ -39,6 +40,7 @@ MaterialColor customColor = MaterialColor(0xff00324D, color);
         '/order_production': (context) => OrderProduction(),
         '/loteo': (context) => PurchaseSupplyView(),
         '/products': (context) => ProductsView(),
+        '/supply':(context) => InsumoView()
         //Aqui se agregan la ruta a donde va a ir el boton
       },
     );
