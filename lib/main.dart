@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senaonprintingmovil/components/Insumo/insumo_view.dart';
 import 'package:senaonprintingmovil/components/Loteo/purchase_supply_view.dart';
 import 'package:senaonprintingmovil/components/OrderProduction/order_production_view.dart';
 import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/quotation': (context) => QuotationClientView(),
         '/order_production': (context) => OrderProduction(),
         '/loteo': (context) => PurchaseSupplyView(),
+        '/supply':(context) => InsumoView()
         //Aqui se agregan la ruta a donde va a ir el boton
       },
     );
@@ -104,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                     Icons.auto_awesome_motion_rounded,
                     'Insumos',
                    Color.fromARGB(130, 56, 169, 0),
-                    '/insumos', // Agrega la ruta correspondiente
+                    '/supply', // Agrega la ruta correspondiente
                   ),
                 ],
               ),
