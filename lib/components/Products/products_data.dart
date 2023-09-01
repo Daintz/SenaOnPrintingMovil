@@ -1,0 +1,22 @@
+List<Map<String, dynamic>> productsData = [
+  {
+    "name": "LIBRETA SENA",
+    "typeProduct": "Libreta",
+    "cost": "9.500",
+    "statedAt": true,
+    "size": "10,5x13,5",
+    "frontPageInks": "2",
+    "frontPagePantone": "HKS",
+    "frontPageCode": "34535",
+    "backCoverInks": "",
+    "backCoverPantone": "LSF",
+    "backCoverCode": "12123",
+    "insideInks": "0",
+    "numberPages": "50",
+    "substratumFrontPage": "Vinilo adhesivo",
+    "substratumBackCover": "Vinilo adhesivo",
+    "substratumInside": "Bond 75g",
+    "substratum": "Bond - Vinilo adhesivo - Esmaltado C2S",
+    "paperCut": "Carta",
+  },
+];

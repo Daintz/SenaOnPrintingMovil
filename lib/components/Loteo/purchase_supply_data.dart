@@ -75,6 +75,5 @@ List<Map<String, dynamic>> purchase_supply_Data = [
       },
     ],
   },
-  // Agrega más datos de cotizaciones según tus necesidades
 ];
 

@@ -127,7 +127,6 @@ class SupplyDetailsModal extends StatelessWidget {
             _buildDetailRow('Indicadores de Peligrosidad', supply['IndicadoresDePeligrosidad']),
             _buildDetailRow('Tipo de Insumo', supply['TipoDeInsumo']),
             _buildDetailRow('Instrucciones', supply['Instrucciones']),
-            _buildDetailRow('Consejos', supply['Consejos']),
             _buildDetailRow('Costo promedio', supply['CostoPromedio']),
             _buildDetailRow('Estado', supply['estado']),
           ],
