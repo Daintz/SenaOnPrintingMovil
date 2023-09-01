@@ -30,7 +30,7 @@ class OrderProductionDetailsPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,9 +41,16 @@ class OrderProductionDetailsPage extends StatelessWidget {
               _buildDetailRow('Tipo de servicio', typeService),
               _buildDetailRow('Estado', statedAt),
               SizedBox(height: 16),
-              _buildDetailRowWithImage('Imagen', image),
-              SizedBox(height: 16),
-              _buildDetailRowWithImage('Esquema', scheme),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildDetailRowWithImage('Imagen', image),
+                    SizedBox(width: 16),
+                    _buildDetailRowWithImage('Esquema', scheme),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -77,7 +84,7 @@ class OrderProductionDetailsPage extends StatelessWidget {
         ),
         SizedBox(height: 8),
         Container(
-          width: 200,
+          width: 175,
           height: 200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),

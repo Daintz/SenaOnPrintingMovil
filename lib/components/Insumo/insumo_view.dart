@@ -35,8 +35,8 @@ class InsumoView extends StatelessWidget {
   void _showInsumoDetails(BuildContext context, int index) {
     showModalBottomSheet(
       context: context,
-      builder: (context) =>  InsumosDetailPage(
-        insumoData:insumoslista[index],
+      builder: (context) => InsumosDetailPage(
+        insumoData: insumoslista[index],
       ),
     );
   }
@@ -78,7 +78,7 @@ class InsumoCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.supervised_user_circle_sharp,
+                Icons.science_rounded,
                 size: 56,
               ),
             ),
@@ -86,7 +86,9 @@ class InsumoCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(insumoData['Nombre'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                Text(insumoData['Nombre'],
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                 Text('Tipo de insumo: ${insumoData['TipoInsumo']}'),
                 Text('Tipo Peligrosidad: ${insumoData['TipoPeligrosidad']}'),
                 Text('Cantidad: ${insumoData['Cantidad']}'),

@@ -78,7 +78,7 @@ class ClientCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.supervised_user_circle_sharp,
+                Icons.person_rounded,
                 size: 56,
               ),
             ),
@@ -86,7 +86,9 @@ class ClientCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(clientData['name'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                Text(clientData['name'],
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                 Text('Teléfono: ${clientData['phone']}'),
                 Text('Correo: ${clientData['email']}'),
                 Text('Centro: ${clientData['center']}'),
