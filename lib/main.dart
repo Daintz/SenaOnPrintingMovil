@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:senaonprintingmovil/components/Loteo/purchase_supply_view.dart';
 import 'package:senaonprintingmovil/components/OrderProduction/order_production_view.dart';
 import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
-import 'components/Loteo/Lotes.dart';
 import 'package:senaonprintingmovil/components/Client/clients_view.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         '/clients': (context) => ClientsView(),
         '/quotation': (context) => QuotationClientView(),
         '/order_production': (context) => OrderProduction(),
-        '/loteo': (context) => Lotes(),
+        '/loteo': (context) => PurchaseSupplyView(),
         //Aqui se agregan la ruta a donde va a ir el boton
       },
     );
@@ -40,14 +40,11 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'SENA ON PRINTING',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              Image.asset(
+                  'images/logo_sena.jpeg',
+                  width: 300, // Ancho de la imagen
+                  height: 150, // Altura de la imagen
                 ),
-              ),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     Icons.shopping_basket,
                     'Productos',
-                    Color(0xFFAED9E0),
+                    Color.fromARGB(206, 0, 49, 77),
                     '/products',
                   ),
                   SizedBox(width: 20),
@@ -64,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     Icons.shopping_cart,
                     'Clientes',
-                    Color(0xFFC7C6A5),
+                    Color.fromARGB(141, 0, 49, 77),
                     '/clients',
                   ),
                 ],
@@ -77,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     Icons.request_quote,
                     'Cotización',
-                    Color(0xFFE5B9B0),
+                    Color.fromARGB(255, 130, 222, 240),
                     '/quotation',
                   ),
                   SizedBox(width: 20),
@@ -85,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     Icons.checklist,
                     'Orden Producción',
-                    Color(0xFFF7EDE2),
+                   Color.fromARGB(154, 130, 222, 240),
                     '/order_production',
                   ),
                 ],
@@ -98,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     Icons.shopping_bag,
                     'Compra Insumos',
-                    Color(0xFFD2E8BB),
+                   Color.fromARGB(187, 56, 169, 0),
                     '/loteo',
                   ),
                   SizedBox(width: 20),
@@ -106,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     Icons.auto_awesome_motion_rounded,
                     'Insumos',
-                    Color(0xFFD2E8BB),
+                   Color.fromARGB(130, 56, 169, 0),
                     '/insumos', // Agrega la ruta correspondiente
                   ),
                 ],
