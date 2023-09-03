@@ -2,7 +2,21 @@ import 'package:flutter/material.dart';
 import 'client_details_page.dart';
 import 'client_data.dart';
 
-class ClientsView extends StatelessWidget {
+class ClientsView extends StatefulWidget {
+  @override
+  _ClientsViewState createState() => _ClientsViewState();
+}
+
+class _ClientsViewState extends State<ClientsView> {
+  late Future<List<Map<String, dynamic>>> clientData;
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa la carga de datos cuando se crea la vista
+    clientData = fetchClientData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,32 +30,51 @@ class ClientsView extends StatelessWidget {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: List.generate(
-            clientData.length,
-            (index) => ClientCard(
-              clientData: clientData[index],
-              onTap: () {
-                _showClientDetails(context, index);
-              },
-            ),
-          ),
-        ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        // Utiliza la variable clientData que contiene los datos de la API
+        future: clientData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Muestra un indicador de carga mientras se obtienen los datos
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // Muestra un mensaje de error si no se pueden obtener los datos
+            return Center(child: Text('Error al cargar los datos'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // Muestra un mensaje si no hay datos disponibles
+            return Center(child: Text('No se encontraron clientes'));
+          } else {
+            // Muestra la lista de clientes obtenida de la API
+            final clientData = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                  clientData.length,
+                  (index) => ClientCard(
+                    clientData: clientData[index],
+                    onTap: () {
+                      _showClientDetails(context, index);
+                    },
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
 
-  void _showClientDetails(BuildContext context, int index) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ClientDetailsPage(
-        clientData: clientData[index],
-      ),
-    );
-  }
+  void _showClientDetails(BuildContext context, int index) async {
+  final data = await clientData; // Esperar a que clientData se resuelva
+  showModalBottomSheet(
+    context: context,
+    builder: (context) => ClientDetailsPage(
+      clientData: data[index],
+    ),
+  );
 }
-
+}
 class ClientCard extends StatelessWidget {
   final Map<String, dynamic> clientData;
   final VoidCallback onTap;
