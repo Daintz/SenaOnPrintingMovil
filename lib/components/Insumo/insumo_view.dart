@@ -2,12 +2,27 @@ import 'package:flutter/material.dart';
 import 'insumo_data.dart';
 import 'insumo_details_page.dart';
 
-class InsumoView extends StatelessWidget {
+
+class supplysView extends StatefulWidget {
+  @override
+  _supplysViewState createState() => _supplysViewState();
+}
+
+class _supplysViewState extends State<supplysView> {
+  late Future<List<Map<String, dynamic>>> supplyData;
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa la carga de datos cuando se crea la vista
+    supplyData = fetchsupplyData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Insumos'),
+        title: Text('supplyes'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -16,44 +31,63 @@ class InsumoView extends StatelessWidget {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: List.generate(
-            insumoslista.length,
-            (index) => InsumoCard(
-              insumoData: insumoslista[index],
-              onTap: () {
-                _showInsumoDetails(context, index);
-              },
-            ),
-          ),
-        ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        // Utiliza la variable supplyData que contiene los datos de la API
+        future: supplyData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Muestra un indicador de carga mientras se obtienen los datos
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // Muestra un mensaje de error si no se pueden obtener los datos
+            return Center(child: Text('Error al cargar los datos'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // Muestra un mensaje si no hay datos disponibles
+            return Center(child: Text('No se encontraron supplyes'));
+          } else {
+            // Muestra la lista de supplyes obtenida de la API
+            final supplyData = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                  supplyData.length,
+                  (index) => supplyCard(
+                    supplyData: supplyData[index],
+                    onTap: () {
+                      _showsupplyDetails(context, index);
+                    },
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
 
-  void _showInsumoDetails(BuildContext context, int index) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => InsumosDetailPage(
-        insumoData: insumoslista[index],
+  void _showsupplyDetails(BuildContext context, int index) async {
+  final data = await supplyData; // Esperar a que supplyData se resuelva
+  showModalBottomSheet(
+    context: context,
+    builder: (context) => InsumosDetailPage(
+      insumoData: data[index],  // Cambia supplyData a insumoData
       ),
-    );
-  }
+  );
 }
-
-class InsumoCard extends StatelessWidget {
-  final Map<String, dynamic> insumoData;
+}
+class supplyCard extends StatelessWidget {
+  final Map<String, dynamic> supplyData;
   final VoidCallback onTap;
 
-  InsumoCard({
-    required this.insumoData,
+  supplyCard({
+    required this.supplyData,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    bool statedAt = insumoData['estado'];
+    bool statedAt = supplyData['statedAt'];
 
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -78,7 +112,7 @@ class InsumoCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.science_rounded,
+                Icons.person_rounded,
                 size: 56,
               ),
             ),
@@ -86,12 +120,12 @@ class InsumoCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(insumoData['Nombre'],
+                Text(supplyData['name'],
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                Text('Tipo de insumo: ${insumoData['TipoInsumo']}'),
-                Text('Tipo Peligrosidad: ${insumoData['TipoPeligrosidad']}'),
-                Text('Cantidad: ${insumoData['Cantidad']}'),
+                Text('Tipo de insumo: ${supplyData['supplyType']}'),
+                Text('Instrucciones: ${supplyData['useInstructions']}'),
+                Text('Categoria: ${supplyData['supplyCategoriesId']}'),
               ],
             ),
           ],

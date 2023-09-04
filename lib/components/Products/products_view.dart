@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:senaonprintingmovil/components/Products/products_details_page.dart';
-import 'products_data.dart'; // Importa los datos de las cotizaciones
 
-class ProductsView extends StatelessWidget {
+import '../Products/products_data.dart';
+
+
+class ProductsView extends StatefulWidget {
+  @override
+  _ProductsViewState createState() => _ProductsViewState();
+}
+
+class _ProductsViewState extends State<ProductsView> {
+  late Future<List<Map<String, dynamic>>> ProductData;
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa la carga de datos cuando se crea la vista
+    ProductData = fetchProductData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Productos'),
+        title: Text('Productos'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -16,44 +32,64 @@ class ProductsView extends StatelessWidget {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: List.generate(
-            productsData.length,
-            (index) => QuotationCard(
-              productsData: productsData[index],
-              onTap: () {
-                _showQuotationDetails(context, index);
-              },
-            ),
-          ),
-        ),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        // Utiliza la variable ProductData que contiene los datos de la API
+        future: ProductData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Muestra un indicador de carga mientras se obtienen los datos
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // Muestra un mensaje de error si no se pueden obtener los datos
+            return Center(child: Text('Error al cargar los datos'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            // Muestra un mensaje si no hay datos disponibles
+            return Center(child: Text('No se encontraron Productos'));
+          } else {
+            // Muestra la lista de Productes obtenida de la API
+            final ProductData = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: List.generate(
+                  ProductData.length,
+                  (index) => ProductCard(
+                    ProductData: ProductData[index],
+                    onTap: () {
+                      _showProductDetails(context, index);
+                    },
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
 
-  void _showQuotationDetails(BuildContext context, int index) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ProductsDetailsPage(
-        productsData: productsData[index],
-      ),
-    );
-  }
+  void _showProductDetails(BuildContext context, int index) async {
+  final data = await ProductData; // Esperar a que ProductData se resuelva
+  showModalBottomSheet(
+    context: context,
+    builder: (context) => ProductsDetailsPage(
+    productsData: data[index],
+    ),
+  );
 }
-
-class QuotationCard extends StatelessWidget {
-  final Map<String, dynamic> productsData;
+}
+class ProductCard extends StatelessWidget {
+  final Map<String, dynamic> ProductData;
   final VoidCallback onTap;
 
-  QuotationCard({
-    required this.productsData,
+  ProductCard({
+    required this.ProductData,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    bool statedAt = productsData['statedAt'];
+    bool statedAt = ProductData['statedAt'];
+
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(
@@ -77,7 +113,7 @@ class QuotationCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.money_rounded, // Cambia el icono para las cotizaciones
+                Icons.person_rounded,
                 size: 56,
               ),
             ),
@@ -85,12 +121,9 @@ class QuotationCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Nombre: ${productsData['name']}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                ),
-                Text('Tipo producto: ${productsData['typeProduct']}'),
-                Text('Costo: ${productsData['cost']}'),
+                Text(ProductData['name'],
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
               ],
             ),
           ],

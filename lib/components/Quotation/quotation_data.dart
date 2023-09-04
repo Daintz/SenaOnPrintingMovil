@@ -1,45 +1,45 @@
-List<Map<String, dynamic>> quotationData = [
-  {
-    'code': '0001',
-    'date': '2023-08-24',
-    'client': 'JHON',
-    'isActive': false,
-    'products': [
-      {'name': 'producto1', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto2', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto3', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto4', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto5', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto6', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto7', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto8', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto9', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto10', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-    ],
-  },
-  {
-    'code': '0002',
-    'date': '2023-08-25',
-    'client': 'ROJAS',
-    'isActive': true,
-    'products': [
-      {'name': 'producto1', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto2', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto3', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-    ],
-  },
-  {
-    'code': '0003',
-    'date': '2023-08-24',
-    'client': 'KATHERIN',
-    'isActive': true,
-    'products': [
-      {'name': 'producto1', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto2', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto3', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto4', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-      {'name': 'producto5', 'valor': '100000', 'cantidad': 5, 'TipeS': 'Servicio 1'},
-    ],
-  },
-  // Agrega más datos de cotizaciones según tus necesidades
-];
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../api_config.dart';
+
+// Función para obtener datos de la API
+Future<List<Map<String, dynamic>>> fetchQuotationData() async {
+  final url = Uri.parse('${ApiConfig.baseUrl}/api/QuotationClient');
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final List<dynamic> jsonData = json.decode(response.body);
+
+    // Mapear los datos de la respuesta API a la estructura que necesitas
+    List<Map<String, dynamic>> quotationClientData = [];
+
+    for (var quotationClient in jsonData) {
+      quotationClientData.add({
+    'user': quotationClient['userId'],
+    'client': quotationClient['clientId'],
+    'code': quotationClient['code'],
+    'orderDate': quotationClient['orderDate'],
+    'statedAt': quotationClient['statedAt'],
+    'deliverDate': quotationClient['deliverDate'],
+    'quotationStatus': quotationClient['quotationStatus'],
+    'fullValue': quotationClient['fullValue'],
+    'quotationClientDetailCreateDto': [
+      {
+        "typeServiceId": quotationClient['typeServiceId'],
+        "productId": quotationClient['productId'],
+        "cost": quotationClient['cost'],
+        "quantity": quotationClient['quantity'],
+        "statedAt": quotationClient['statedAt']
+      }
+    ]
+  });
+}
+
+  return quotationClientData;
+
+  } else {
+    // Manejar errores aquí si es necesario
+    throw Exception('Error al cargar datos de la API');
+  }
+}

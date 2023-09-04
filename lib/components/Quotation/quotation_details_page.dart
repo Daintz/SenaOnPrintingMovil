@@ -20,10 +20,10 @@ class QuotationDetailsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow('Código', quotationData['code']),
-              _buildDetailRow('Fecha orden', quotationData['date']),
-              _buildDetailRow('Cliente', quotationData['client']),
-              _buildProductList(quotationData['products']), // Mostrar lista de productos
+              _buildDetailRow('Código', '${quotationData['code']}'),
+              _buildDetailRow('Fecha orden', quotationData['orderDate'] ?? 'Fecha no disponible'),
+             _buildDetailRow('Cliente', '${quotationData['client']}'),
+            _buildProductList(quotationData['quotationClientDetailCreateDto'] ?? [])
             ],
           ),
         ),
@@ -47,7 +47,12 @@ class QuotationDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductList(List<Map<String, dynamic>> products) {
+  Widget _buildProductList(List<Map<String, dynamic>> quotationClientDetails) {
+  if (quotationClientDetails == null || quotationClientDetails.isEmpty) {
+    // Manejar el caso en el que 'quotationClientDetails' sea nulo o vacío, por ejemplo, mostrar un mensaje de que no hay productos disponibles.
+    return Text('No hay productos disponibles');
+  }
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -57,7 +62,7 @@ class QuotationDetailsPage extends StatelessWidget {
       ),
       SizedBox(height: 8), // Espacio entre el título y la lista de productos
       Column(
-        children: products.map((product) {
+        children: quotationClientDetails.map((detail) {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 8),
             padding: EdgeInsets.all(12),
@@ -71,22 +76,22 @@ class QuotationDetailsPage extends StatelessWidget {
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(
-                    product['name'],
+                    detail['name'] ?? 'Nombre no disponible',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   trailing: Text(
-                    'Valor: ${product['valor']}',
+                    'Valor: ${detail['cost'] ?? 'Valor no disponible'}',
                     style: TextStyle(fontSize: 14, color: Colors.blue),
                   ),
                 ),
                 SizedBox(height: 6),
                 Text(
-                  'Cantidad: ${product['cantidad']}',
+                  'Cantidad: ${detail['quantity'] ?? 'Cantidad no disponible'}',
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(height: 6),
                 Text(
-                  'Tipo de Servicio: ${product['TipeS']}',
+                  'Tipo de Servicio: ${detail['typeServiceId'] ?? 'Tipo de servicio no disponible'}',
                   style: TextStyle(fontSize: 14),
                 ),
               ],
@@ -97,4 +102,5 @@ class QuotationDetailsPage extends StatelessWidget {
     ],
   );
 }
+
 }
