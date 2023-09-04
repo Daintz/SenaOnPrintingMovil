@@ -25,6 +25,7 @@ class ClientDetailsPage extends StatelessWidget {
             _buildDetailRow('Centro', clientData['center']),
             _buildDetailRow('Área', clientData['area']),
             _buildDetailRow('Regional', clientData['regional']),
+            
           ],
         ),
       ),

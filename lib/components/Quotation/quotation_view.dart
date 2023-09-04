@@ -91,7 +91,7 @@ class QuotationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isActive = quotationData['']; // Asegúrate de tener un campo correcto para el estado de la cotización
+    bool isActive = quotationData['statedAt']; // Asegúrate de tener un campo correcto para el estado de la cotización
 
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -22,7 +22,7 @@ class _supplysViewState extends State<supplysView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('supplyes'),
+        title: Text('Insumos'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

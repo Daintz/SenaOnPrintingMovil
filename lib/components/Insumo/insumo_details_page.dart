@@ -19,11 +19,11 @@ class InsumosDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildDetailRow('Nombre', insumoData['Nombre']),
-            _buildDetailRow('Tipo de insumo', insumoData['TipoInsumo']),
-            _buildDetailRow('Tipo Peligrosidad', insumoData['TipoPeligrosidad']),
-            _buildDetailRow('Cantidad', insumoData['Cantidad']),
-            _buildDetailRow('Costo Promedio', insumoData['CostoPromedio']),
+            _buildDetailRow('Nombre', '${insumoData['name']}'),
+            _buildDetailRow('Tipo de insumo', '${insumoData['supplyType']}'),
+            _buildDetailRow('Tipo Peligrosidad', '${insumoData['dangerIndicators']}'),
+            _buildDetailRow('Categorias', '${insumoData['supplyCategoriesId']}'),
+            _buildDetailRow('Costo Promedio', '${insumoData['averageCost']}'),
           ],
         ),
       ),
