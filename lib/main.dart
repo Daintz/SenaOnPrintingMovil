@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         //'/menu': (context) => MainScreen(),
         '/clients': (context) => ClientsView(),
         '/quotation': (context) => QuotationClientView(),
-        '/order_production': (context) => OrderProduction(),
+        '/order_production': (context) => orderProductionsView(),
         '/loteo': (context) => PurchaseSupplyView(),
         '/products': (context) => ProductsView(),
         '/supply': (context) => supplysView()

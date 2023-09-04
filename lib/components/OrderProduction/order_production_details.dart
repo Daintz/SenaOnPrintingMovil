@@ -1,62 +1,64 @@
 import 'package:flutter/material.dart';
 
 class OrderProductionDetailsPage extends StatelessWidget {
-  final String client;
-  final String product;
-  final String deliveryDate;
-  final String process;
-  final String typeService;
-  final String statedAt;
-  final String scheme;
-  final String image;
+  final Map<String, dynamic> orderProductionData;
 
   OrderProductionDetailsPage({
-    required this.client,
-    required this.product,
-    required this.deliveryDate,
-    required this.process,
-    required this.typeService,
-    required this.statedAt,
-    required this.scheme,
-    required this.image,
+    required this.orderProductionData,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalles del OP'),
+        title: Text('Detalle Orden de Producción'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildDetailRow('Cliente', client),
-              _buildDetailRow('Producto', product),
-              _buildDetailRow('Fecha entrega', deliveryDate),
-              _buildDetailRow('Proceso', process),
-              _buildDetailRow('Tipo de servicio', typeService),
-              _buildDetailRow('Estado', statedAt),
-              SizedBox(height: 16),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDetailRow('producto', orderProductionData['product']?? 'Producto no disponible',),
+            _buildDetailRow('Fecha de orden', orderProductionData['orderDate']?? 'Fecha no disponible',),
+            _buildDetailRow('Fecha entrega', orderProductionData['deliverDate']?? 'Fecha no disponible',),
+            _buildDetailRow('Encargado', orderProductionData['userId']?? 'Encargado no disponible',),
+            _buildDetailRow('Maquina', orderProductionData['machineId']?? 'Maquina no disponible',),
+            _buildDetailRow('Observaciones', orderProductionData['observations']),
+             SizedBox(height: 16),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _buildDetailRowWithImage('Imagen', image),
+                    _buildDetailRowWithImage('Imagen', orderProductionData['image']),
                     SizedBox(width: 16),
-                    _buildDetailRowWithImage('Esquema', scheme),
+                    _buildDetailRowWithImage('Esquema', orderProductionData['scheme']),
                   ],
                 ),
               )
-            ],
-          ),
+          ],
         ),
       ),
     );
   }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label + ':',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(value),
+        ],
+      ),
+    );
+  }
+}
+
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(
@@ -108,4 +110,4 @@ class OrderProductionDetailsPage extends StatelessWidget {
       ],
     );
   }
-}
+
