@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/clients': (context) => ClientsView(),
         '/quotation': (context) => QuotationClientView(),
         '/order_production': (context) => orderProductionsView(),
-        '/loteo': (context) => PurchaseSupplyView(),
+        '/loteo': (context) => supplysDetailsView(),
         '/products': (context) => ProductsView(),
         '/supply': (context) => supplysView()
         //Aqui se agregan la ruta a donde va a ir el boton

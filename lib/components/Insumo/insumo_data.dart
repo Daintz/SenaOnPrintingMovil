@@ -19,6 +19,7 @@ Future<List<Map<String, dynamic>>> fetchsupplyData() async {
         'name': supply['name'],
         'statedAt': supply['statedAt'],
         'dangerIndicators': supply['dangerIndicators'],
+        'advices': supply['advices'],
         'useInstructions': supply['useInstructions'],
         'supplyType': supply['supplyType'],
         'sortingWord': supply['sortingWord'],

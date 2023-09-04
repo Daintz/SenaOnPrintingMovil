@@ -1,79 +1,36 @@
-List<Map<String, dynamic>> purchase_supply_Data = [
-  {
-    "FechaInicio":"30/08/2023",
-    "FehaVencimiento":"30/08/2024",
-    "bodega":"bodega 1",
-    "proveedor":"Juan manuel",
-    "description":"aca se almacenan todos los insumos de sublimación",
-    'statedAt':false,
-    'supplys': [
-      {
-        "Nombre": "Tinta de impresión",
-        "IndicadoresDePeligrosidad": "Inflamable",
-        "Instrucciones": "Almacene en un lugar fresco y seco.",
-        "Consejos": "Mantenga alejado de fuentes de calor y llamas abiertas.",
-        "TipoDeInsumo": "Consumible",
-        "TipoPeligrosidad": "Química",
-        "Cantidad": "5 galones",
-        "CostoPromedio": "\$150 por galón",
-        "estado": "En stock"
-      },
-      {
-        "Nombre": "Tinta de impresión",
-        "IndicadoresDePeligrosidad": "Inflamable",
-        "Instrucciones": "Almacene en un lugar fresco y seco.",
-        "Consejos": "Mantenga alejado de fuentes de calor y llamas abiertas.",
-        "TipoDeInsumo": "Consumible",
-        "TipoPeligrosidad": "Química",
-        "Cantidad": "5 galones",
-        "CostoPromedio": "\$150 por galón",
-        "estado": "En stock"
-      },
-      {
-        "Nombre": "Tinta de impresión",
-        "IndicadoresDePeligrosidad": "Inflamable",
-        "Instrucciones": "Almacene en un lugar fresco y seco.",
-        "Consejos": "Mantenga alejado de fuentes de calor y llamas abiertas.",
-        "TipoDeInsumo": "Consumible",
-        "TipoPeligrosidad": "Química",
-        "Cantidad": "5 galones",
-        "CostoPromedio": "\$150 por galón",
-        "estado": "En stock"
-      },
-      {
-        "Nombre": "Tinta de impresión",
-        "IndicadoresDePeligrosidad": "Inflamable",
-        "Instrucciones": "Almacene en un lugar fresco y seco.",
-        "Consejos": "Mantenga alejado de fuentes de calor y llamas abiertas.",
-        "TipoDeInsumo": "Consumible",
-        "TipoPeligrosidad": "Química",
-        "Cantidad": "5 galones",
-        "CostoPromedio": "\$150 por galón",
-        "estado": "En stock"
-      },
-      {
-        "Nombre": "Tinta de impresión",
-        "IndicadoresDePeligrosidad": "Inflamable",
-        "Instrucciones": "Almacene en un lugar fresco y seco.",
-        "Consejos": "Mantenga alejado de fuentes de calor y llamas abiertas.",
-        "TipoDeInsumo": "Consumible",
-        "TipoPeligrosidad": "Química",
-        "Cantidad": "5 galones",
-        "CostoPromedio": "\$150 por galón",
-        "estado": "En stock"
-      },
-      {
-        "Nombre": "Tinta de impresión",
-        "IndicadoresDePeligrosidad": "Inflamable",
-        "Instrucciones": "Almacene en un lugar fresco y seco.",
-        "Consejos": "Mantenga alejado de fuentes de calor y llamas abiertas.",
-        "TipoDeInsumo": "Consumible",
-        "TipoPeligrosidad": "Química",
-        "Cantidad": "5 galones",
-        "CostoPromedio": "\$150 por galón",
-        "estado": "En stock"
-      },
-    ],
-  },
-];
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../api_config.dart';
 
+// Función para obtener datos de la API
+Future<List<Map<String, dynamic>>> fetchsupplyDetailsData() async {
+  final url = Uri.parse('${ApiConfig.baseUrl}/api/SupplyDetails');
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    final List<dynamic> jsonData = json.decode(response.body);
+
+    // Mapear los datos de la respuesta API a la estructura que necesitas
+    List<Map<String, dynamic>> supplyData = [];
+
+    for (var supply in jsonData) {
+      supplyData.add({
+        'supplyId': supply['supplyId'],
+        'providerId': supply['providerId'],
+        'description': supply['description'],
+        'supplyCost': supply['supplyCost'],
+        'entryDate': supply['entryDate'],
+        'expirationDate': supply['expirationDate'],
+        'warehouseId': supply['warehouseId'],
+        'statedAt': supply['statedAt'],
+
+      });
+    }
+
+    return supplyData;
+  } else {
+    // Manejar errores aquí si es necesario
+    throw Exception('Error al cargar datos de la API');
+  }
+}

@@ -124,8 +124,8 @@ class supplyCard extends StatelessWidget {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                 Text('Tipo de insumo: ${supplyData['supplyType']}'),
-                Text('Instrucciones: ${supplyData['useInstructions']}'),
-                Text('Categoria: ${supplyData['supplyCategoriesId']}'),
+                Text('Tipo de peligrosidad: ${supplyData['sortingWord']}'),
+
               ],
             ),
           ],
