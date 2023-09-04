@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         '/order_production': (context) => OrderProduction(),
         '/loteo': (context) => PurchaseSupplyView(),
         '/products': (context) => ProductsView(),
-        '/supply': (context) => InsumoView()
+        '/supply': (context) => supplysView()
         //Aqui se agregan la ruta a donde va a ir el boton
       },
     );
