@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senaonprintingmovil/components/Insumo/insumo_view.dart';
 import 'package:senaonprintingmovil/components/Loteo/purchase_supply_view.dart';
+import 'package:senaonprintingmovil/components/Loteo/qr_scanner.dart';
 import 'package:senaonprintingmovil/components/OrderProduction/order_production_view.dart';
 import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
 import 'package:senaonprintingmovil/components/Client/clients_view.dart';
@@ -36,14 +37,13 @@ class MyApp extends StatelessWidget {
       routes: {
         '/Login': (context) => Login(),
         '/': (context) => HomeScreen(),
-        //'/menu': (context) => MainScreen(),
         '/clients': (context) => ClientsView(),
         '/quotation': (context) => QuotationClientView(),
         '/order_production': (context) => orderProductionsView(),
         '/loteo': (context) => supplysDetailsView(),
         '/products': (context) => ProductsView(),
-        '/supply': (context) => supplysView()
-        //Aqui se agregan la ruta a donde va a ir el boton
+        '/supply': (context) => supplysView(),
+        '/qr_scanner': (context) => QRScannerView(), // Agregamos la ruta para el escáner QR
       },
     );
   }
@@ -130,38 +130,53 @@ class HomeScreen extends StatelessWidget {
                         Icons.shelves,
                         'Insumos',
                         Color.fromARGB(130, 56, 169, 0),
-                        '/supply', // Agrega la ruta correspondiente
+                        '/supply',
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
+              // Agregamos el botón para el escáner QR
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/qr_scanner');
+                },
+                child: Text('Escanear QR'),
+              ),
               Container(
                 width: 320,
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        alignment: Alignment.bottomCenter,
-                        backgroundColor: Colors.white),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.output_outlined,
-                            color: Colors.red,
-                            size: 30,
-                          ),
-                          SizedBox(width: 10),
-                          const Text("Cerrar sesión",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.normal))
-                        ])),
+                  style: ElevatedButton.styleFrom(
+                    alignment: Alignment.bottomCenter,
+                    backgroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.output_outlined,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                      SizedBox(width: 10),
+                      const Text(
+                        "Cerrar sesión",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -175,7 +190,7 @@ class HomeScreen extends StatelessWidget {
     IconData icon,
     String label,
     Color color,
-    String route, // Nueva adición
+    String route,
   ) {
     return Container(
       width: 150,
@@ -188,14 +203,15 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, route);
-              },
-              icon: Icon(
-                icon,
-                size: 50,
-                color: Colors.black,
-              )),
+            onPressed: () {
+              Navigator.pushNamed(context, route);
+            },
+            icon: Icon(
+              icon,
+              size: 50,
+              color: Colors.black,
+            ),
+          ),
           SizedBox(height: 10),
           Text(
             label,
