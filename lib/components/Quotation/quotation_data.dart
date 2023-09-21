@@ -16,23 +16,16 @@ Future<List<Map<String, dynamic>>> fetchQuotationData() async {
 
     for (var quotationClient in jsonData) {
       quotationClientData.add({
-    'user': quotationClient['userId'],
-    'client': quotationClient['clientId'],
-    'code': quotationClient['code'],
-    'orderDate': quotationClient['orderDate'],
-    'statedAt': quotationClient['statedAt'],
-    'deliverDate': quotationClient['deliverDate'],
-    'quotationStatus': quotationClient['quotationStatus'],
-    'fullValue': quotationClient['fullValue'],
-    'quotationClientDetailCreateDto': [
-      {
-        "typeServiceId": quotationClient['typeServiceId'],
-        "productId": quotationClient['productId'],
-        "cost": quotationClient['cost'],
-        "quantity": quotationClient['quantity'],
-        "statedAt": quotationClient['statedAt']
-      }
-    ]
+        'code': quotationClient['code'],
+        'orderDate': quotationClient['orderDate'],
+        'deliverDate': quotationClient['deliverDate'],
+        'quotationStatus': quotationClient['quotationStatus'],
+        'fullValue': quotationClient['fullValue'],
+        'quantity': quotationClient['quantity'],
+        'user': quotationClient['user'],
+        'client': quotationClient['client'],
+        'quotationClientDetails': quotationClient['quotationClientDetails'],
+        'statedAt': quotationClient['statedAt'],
   });
 }
 

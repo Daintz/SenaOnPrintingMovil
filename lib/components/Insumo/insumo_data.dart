@@ -26,7 +26,9 @@ Future<List<Map<String, dynamic>>> fetchsupplyData() async {
         'averageCost': supply['averageCost'],
         'unitMeasuresId': supply['unitMeasuresId'],
         'supplyPictogramsId': supply['supplyPictogramsId'],
-        'supplyCategoriesId': supply['supplyCategoriesId'],
+        'supplyCategoriesXSupply':supply['supplyCategoriesXSupply'],
+        'supplyXSupplyPictogram': supply['supplyXSupplyPictogram'],
+        'unitMeasuresXSupply': supply['unitMeasuresXSupply'],
       });
     }
 

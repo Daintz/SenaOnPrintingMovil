@@ -4,7 +4,7 @@ import '../../api_config.dart';
 
 // Función para obtener datos de la API
 Future<List<Map<String, dynamic>>> fetchsupplyDetailsData() async {
-  final url = Uri.parse('${ApiConfig.baseUrl}/api/SupplyDetails');
+  final url = Uri.parse('${ApiConfig.baseUrl}/api/BuySupplies');
 
   final response = await http.get(url);
 
@@ -16,13 +16,10 @@ Future<List<Map<String, dynamic>>> fetchsupplyDetailsData() async {
 
     for (var supply in jsonData) {
       supplyData.add({
-        'supplyId': supply['supplyId'],
-        'providerId': supply['providerId'],
         'description': supply['description'],
-        'supplyCost': supply['supplyCost'],
         'entryDate': supply['entryDate'],
-        'expirationDate': supply['expirationDate'],
-        'warehouseId': supply['warehouseId'],
+        'provider': supply['provider'],
+        'buySuppliesDetails': supply['buySuppliesDetails'],
         'statedAt': supply['statedAt'],
 
       });

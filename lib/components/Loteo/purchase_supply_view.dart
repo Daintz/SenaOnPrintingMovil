@@ -70,7 +70,7 @@ class _supplysDetailsViewState extends State<supplysDetailsView> {
         await compraInsumosData; // Esperar a que compraInsumosData se resuelva
     showModalBottomSheet(
       context: context,
-      builder: (context) => compraInsumossDetailPage(
+      builder: (context) => CompraInsumosDetailPage(
         compraInsumosData: data[index],
       ),
     );
@@ -113,7 +113,7 @@ class supplyCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.person_rounded,
+                Icons.shopping_cart_rounded,
                 size: 56,
               ),
             ),
@@ -121,12 +121,11 @@ class supplyCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Bodega: ${compraInsumosData['warehouseId']}',
+                Text('Descripción: ${compraInsumosData['description']}',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
                 Text('Fecha entrada: ${compraInsumosData['entryDate']}'),
-                Text(
-                    'Fecha vencimiento: ${compraInsumosData['expirationDate']}'),
+                Text('Proveedor: ${compraInsumosData['provider']['nameCompany'] ?? 'Proveedor no disponible'}'),
               ],
             ),
           ],
