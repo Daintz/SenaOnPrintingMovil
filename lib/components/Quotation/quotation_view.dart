@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:senaonprintingmovil/components/Quotation/quotation_data.dart';
 import 'package:senaonprintingmovil/components/Quotation/quotation_details_page.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../../api_config.dart';
+
 
 class QuotationClientView extends StatefulWidget {
   @override
@@ -10,20 +9,20 @@ class QuotationClientView extends StatefulWidget {
 }
 
 class _QuotationClientViewState extends State<QuotationClientView> {
-  late Future<List<Map<String, dynamic>>> quotationData;
+  late Future<List<Map<String, dynamic>>> quotationClientData;
 
   @override
   void initState() {
     super.initState();
     // Inicializa la carga de datos cuando se crea la vista
-    quotationData = fetchQuotationData();
+    quotationClientData = fetchQuotationData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cotizaciones'),
+        title: Text('Cotizaciones de Clientes'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -33,8 +32,8 @@ class _QuotationClientViewState extends State<QuotationClientView> {
         ),
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
-        // Utiliza la variable quotationData que contiene los datos de la API
-        future: quotationData,
+        // Utiliza la variable quotationClientData que contiene los datos de la API
+        future: quotationClientData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Muestra un indicador de carga mientras se obtienen los datos
@@ -46,16 +45,16 @@ class _QuotationClientViewState extends State<QuotationClientView> {
             // Muestra un mensaje si no hay datos disponibles
             return Center(child: Text('No se encontraron cotizaciones'));
           } else {
-            // Muestra la lista de cotizaciones obtenida de la API
-            final quotationData = snapshot.data!;
+            // Muestra la lista de supplyes obtenida de la API
+            final quotationClientData = snapshot.data!;
             return SingleChildScrollView(
               child: Column(
                 children: List.generate(
-                  quotationData.length,
-                  (index) => QuotationCard(
-                    quotationData: quotationData[index],
+                  quotationClientData.length,
+                  (index) => supplyCard(
+                    quotationClientData: quotationClientData[index],
                     onTap: () {
-                      _showQuotationDetails(context, index);
+                      _showsupplyDetails(context, index);
                     },
                   ),
                 ),
@@ -67,31 +66,57 @@ class _QuotationClientViewState extends State<QuotationClientView> {
     );
   }
 
-  void _showQuotationDetails(BuildContext context, int index) {
-  quotationData.then((data) {
+  void _showsupplyDetails(BuildContext context, int index) async {
+    final data =
+        await quotationClientData; // Esperar a que quotationClientData se resuelva
     showModalBottomSheet(
       context: context,
       builder: (context) => QuotationDetailsPage(
         quotationData: data[index],
       ),
     );
-  });
+  }
 }
 
-}
-
-class QuotationCard extends StatelessWidget {
-  final Map<String, dynamic> quotationData;
+class supplyCard extends StatelessWidget {
+  final Map<String, dynamic> quotationClientData;
   final VoidCallback onTap;
 
-  QuotationCard({
-    required this.quotationData,
+  supplyCard({
+    required this.quotationClientData,
     required this.onTap,
   });
+Map<String, dynamic> getStatusTextAndColor(int value) {
+    String statusText;
+    Color statusColor;
 
+    switch (value) {
+      case 1:
+        statusText = 'En Proceso';
+        statusColor = Colors.green;
+        break;
+      case 2:
+        statusText = 'Aprobado';
+        statusColor = Colors.blue;
+        break;
+      case 3:
+        statusText = 'No Aprobado';
+        statusColor = Colors.red;
+        break;
+      default:
+        statusText = 'Terminado';
+        statusColor = Colors.blue;
+        break;
+    }
+
+    return {'text': statusText, 'color': statusColor};
+  }
   @override
   Widget build(BuildContext context) {
-    bool isActive = quotationData['statedAt']; // Asegúrate de tener un campo correcto para el estado de la cotización
+    final int orderStatus = quotationClientData['quotationStatus'] ?? 0;
+    final statusInfo = getStatusTextAndColor(orderStatus);
+
+  bool statedAt = quotationClientData['statedAt'];
 
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -106,7 +131,7 @@ class QuotationCard extends StatelessWidget {
             Container(
               width: 6,
               height: 80,
-              color: isActive ? Colors.green : Colors.red,
+              color: statedAt ? Colors.green : Colors.red,
             ),
             SizedBox(width: 12),
             Container(
@@ -116,7 +141,7 @@ class QuotationCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.money_rounded, // Cambia el icono para las cotizaciones
+                Icons.shopping_cart_rounded,
                 size: 56,
               ),
             ),
@@ -124,55 +149,18 @@ class QuotationCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Código: ${quotationData['code']}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                ),
-                Text('Fecha: ${quotationData['orderDate']}'), // Ajusta el campo de fecha según tus datos
-                Text('Cliente: ${quotationData['client']}'),
+                Text('Código: ${quotationClientData['code']}',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+                Text('${statusInfo['text']}',style: TextStyle(color: statusInfo['color'], fontWeight: FontWeight.bold)),
+                Text('Cotizador: ${quotationClientData['user']['names']}'),
+                Text('Cliente: ${quotationClientData['client']['name'] ?? 'Cliente no disponible'}'),
+                Text('Fecha Orden: ${quotationClientData['orderDate']}'),
               ],
             ),
           ],
         ),
       ),
     );
-  }
-}
-
-Future<List<Map<String, dynamic>>> fetchQuotationData() async {
-  final url = Uri.parse('${ApiConfig.baseUrl}/api/QuotationClient');
-
-  final response = await http.get(url);
-
-  if (response.statusCode == 200) {
-    final List<dynamic> jsonData = json.decode(response.body);
-
-    List<Map<String, dynamic>> quotationClientData = [];
-
-    for (var quotationClient in jsonData) {
-      quotationClientData.add({
-        'user': quotationClient['userId'],
-        'client': quotationClient['clientId'],
-        'code': quotationClient['code'],
-        'orderDate': quotationClient['orderDate'],
-        'statedAt': quotationClient['statedAt'],
-        'deliverDate': quotationClient['deliverDate'],
-        'quotationStatus': quotationClient['quotationStatus'],
-        'fullValue': quotationClient['fullValue'],
-        'quotationClientDetailCreateDto': [
-          {
-            "typeServiceId": quotationClient['typeServiceId'],
-            "productId": quotationClient['productId'],
-            "cost": quotationClient['cost'],
-            "quantity": quotationClient['quantity'],
-            "statedAt": quotationClient['statedAt']
-          }
-        ]
-      });
-    }
-
-    return quotationClientData;
-  } else {
-    throw Exception('Error al cargar datos de la API');
   }
 }

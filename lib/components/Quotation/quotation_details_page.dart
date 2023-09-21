@@ -20,18 +20,38 @@ class QuotationDetailsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow('Código', '${quotationData['code']}'),
-              _buildDetailRow('Fecha orden', quotationData['orderDate'] ?? 'Fecha no disponible'),
-             _buildDetailRow('Cliente', '${quotationData['client']}'),
-            _buildProductList(quotationData['quotationClientDetailCreateDto'] ?? [])
+              _buildDetailRow('Codigo', '${quotationData['code']}'),
+              _buildDetailRow('Cotizador', quotationData['user']['names'] ?? 'Cotizador no disponible'),
+              _buildDetailRow('Cliente', '${quotationData['client']['name']}'),
+              _buildDetailRow('Fecha Orden', '${quotationData['orderDate']}'),
+              _buildDetailRow('Fecha Entrega', '${quotationData['deliverDate']}'),
+              _buildDetailRow('Valor Total', '${quotationData['fullValue']}'),
+              _buildSupplyCards(quotationData['quotationClientDetails']),
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget _buildDetailRow(String label, String value) {
+Widget _buildDetailRow(String label, String value) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label + ':',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(value),
+          ],
+        ),
+        Divider(), // Add a divider between rows
+      ],
+    );
+  }
+}
+  Widget _buildDetailRow1(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -47,60 +67,24 @@ class QuotationDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProductList(List<Map<String, dynamic>> quotationClientDetails) {
-  if (quotationClientDetails == null || quotationClientDetails.isEmpty) {
-    // Manejar el caso en el que 'quotationClientDetails' sea nulo o vacío, por ejemplo, mostrar un mensaje de que no hay productos disponibles.
-    return Text('No hay productos disponibles');
+  Widget _buildSupplyCards(List<dynamic> quotationDetails) {
+    return Column(
+      children: quotationDetails.map((quotationDetail) {
+        return _buildSupplyCard(quotationDetail);
+      }).toList(),
+    );
   }
 
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Productos:',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-      ),
-      SizedBox(height: 8), // Espacio entre el título y la lista de productos
-      Column(
-        children: quotationClientDetails.map((detail) {
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 8),
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    detail['name'] ?? 'Nombre no disponible',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  trailing: Text(
-                    'Valor: ${detail['cost'] ?? 'Valor no disponible'}',
-                    style: TextStyle(fontSize: 14, color: Colors.blue),
-                  ),
-                ),
-                SizedBox(height: 6),
-                Text(
-                  'Cantidad: ${detail['quantity'] ?? 'Cantidad no disponible'}',
-                  style: TextStyle(fontSize: 14),
-                ),
-                SizedBox(height: 6),
-                Text(
-                  'Tipo de Servicio: ${detail['typeServiceId'] ?? 'Tipo de servicio no disponible'}',
-                  style: TextStyle(fontSize: 14),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
-      ),
-    ],
-  );
-}
+  Widget _buildSupplyCard(dynamic quotationDetail) {
+    return Card(
+      child: ExpansionTile(
+        title: Text(quotationDetail['product']['name']),
+        children: [
+          _buildDetailRow1('Cantidad', quotationDetail['quantity'].toString()),
+          _buildDetailRow1('Costo', quotationDetail['cost'].toString()),
 
-}
+        ],
+      ),
+    );
+  }
+

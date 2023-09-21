@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
                   if (value!.isEmpty ||
                       value.length < 8 ||
                       value != "root1234") {
-                    return 'La contraseña debe tener al menos 8 caracteres';
+                    return 'La contraseña es incorrecta';
                   }
                   return null;
                 },
