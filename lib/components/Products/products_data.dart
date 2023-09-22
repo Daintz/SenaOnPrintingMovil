@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../../api_config.dart';
 
 Future<List<Map<String, dynamic>>> fetchProductData() async {
-  final url = Uri.parse('${ApiConfig.baseUrl}/api/Product');
+  final url = Uri.parse('${ApiConfig.baseUrl}/api/product');
 
   final response = await http.get(url);
 

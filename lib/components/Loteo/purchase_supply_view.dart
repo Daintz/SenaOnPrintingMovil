@@ -42,7 +42,7 @@ class _supplysDetailsViewState extends State<supplysDetailsView> {
             return Center(child: Text('Error al cargar los datos'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             // Muestra un mensaje si no hay datos disponibles
-            return Center(child: Text('No se encontraron supplyes'));
+            return Center(child: Text('No se encontraron compras de insumos registradas'));
           } else {
             // Muestra la lista de supplyes obtenida de la API
             final compraInsumosData = snapshot.data!;
