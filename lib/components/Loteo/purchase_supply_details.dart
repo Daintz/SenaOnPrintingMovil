@@ -20,9 +20,12 @@ class CompraInsumosDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow('Descripción', '${compraInsumosData['description']}'),
-              _buildDetailRow('Fecha entrada', compraInsumosData['entryDate'] ?? 'Fecha no disponible'),
-              _buildDetailRow('Proveedor', '${compraInsumosData['provider']['nameCompany']}'),
+              _buildDetailRow(
+                  'Descripción', '${compraInsumosData['description']}'),
+              _buildDetailRow('Fecha entrada',
+                  compraInsumosData['entryDate'] ?? 'Fecha no disponible'),
+              _buildDetailRow('Proveedor',
+                  '${compraInsumosData['provider']['nameCompany']}'),
               _buildSupplyCards(compraInsumosData['buySuppliesDetails']),
             ],
           ),
@@ -30,7 +33,8 @@ class CompraInsumosDetailPage extends StatelessWidget {
       ),
     );
   }
-Widget _buildDetailRow(String label, String value) {
+
+  Widget _buildDetailRow(String label, String value) {
     return Column(
       children: [
         Row(
@@ -48,42 +52,42 @@ Widget _buildDetailRow(String label, String value) {
     );
   }
 }
-  Widget _buildDetailRow1(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label + ':',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(value),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildSupplyCards(List<dynamic> supplyDetails) {
-    return Column(
-      children: supplyDetails.map((supplyDetail) {
-        return _buildSupplyCard(supplyDetail);
-      }).toList(),
-    );
-  }
+Widget _buildDetailRow1(String label, String value) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label + ':',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(value),
+      ],
+    ),
+  );
+}
 
-  Widget _buildSupplyCard(dynamic supplyDetail) {
-    return Card(
-      child: ExpansionTile(
-        title: Text(supplyDetail['supply']['name']),
-        children: [
-          _buildDetailRow1('Cantidad', supplyDetail['supplyQuantity'].toString()),
-          _buildDetailRow1('Costo', supplyDetail['supplyCost'].toString()),
-          _buildDetailRow1('Bodega', supplyDetail['warehouse']['ubication']),
-          _buildDetailRow1('Fecha Caducidad', supplyDetail['expirationDate']),
-          _buildDetailRow1('Unidad Medida', supplyDetail['unitMeasures']['name']),
-        ],
-      ),
-    );
-  }
+Widget _buildSupplyCards(List<dynamic> supplyDetails) {
+  return Column(
+    children: supplyDetails.map((supplyDetail) {
+      return _buildSupplyCard(supplyDetail);
+    }).toList(),
+  );
+}
 
+Widget _buildSupplyCard(dynamic supplyDetail) {
+  return Card(
+    child: ExpansionTile(
+      title: Text(supplyDetail['supply']['name']),
+      children: [
+        _buildDetailRow1('Cantidad', supplyDetail['supplyQuantity'].toString()),
+        _buildDetailRow1('Costo', supplyDetail['supplyCost'].toString()),
+        _buildDetailRow1('Bodega', supplyDetail['warehouse']['ubication']),
+        _buildDetailRow1('Fecha Caducidad', supplyDetail['expirationDate']),
+        _buildDetailRow1('Unidad Medida', supplyDetail['unitMeasures']['name']),
+      ],
+    ),
+  );
+}

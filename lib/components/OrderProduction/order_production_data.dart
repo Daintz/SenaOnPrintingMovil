@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
 import '../../api_config.dart';
 
@@ -17,8 +18,8 @@ Future<List<Map<String, dynamic>>> fetchOrderProductionData() async {
     for (var supply in jsonData) {
       supplyData.add({
         'userName': supply['userName'],
-        'orderDate': supply['orderDate'],
-        'deliverDate': supply['deliverDate'],
+        'orderDate': formatDateFromIsoString(supply['orderDate']),
+        'deliverDate': formatDateFromIsoString(supply['deliverDate']),
         'statedAt': supply['statedAt'],
         'observations': supply['observations'],
         'product': supply['product'],
@@ -43,5 +44,43 @@ Future<List<Map<String, dynamic>>> fetchOrderProductionData() async {
   } else {
     // Manejar errores aquí si es necesario
     throw Exception('Error al cargar datos de la API');
+  }
+}
+
+String formatDateFromIsoString(String isoDateString) {
+  if (isoDateString != null && isoDateString.isNotEmpty) {
+    final parts =
+        isoDateString.split('T'); // Separar la fecha de la hora si es necesario
+    final datePart = parts[0]; // Obtener la parte de la fecha
+
+    final dateParts = datePart.split('-'); // Separar el año, mes y día
+    final year = dateParts[0];
+    final month = dateParts[1];
+    final day = dateParts[2];
+
+    // Mapear los nombres de los meses en español
+    final List<String> spanishMonths = [
+      'Ene',
+      'Feb',
+      'Mar',
+      'Abr',
+      'May',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dic'
+    ];
+
+    final int monthIndex =
+        int.tryParse(month) ?? 1; // Convertir el mes a número
+
+    final formattedDate = '$day de ${spanishMonths[monthIndex - 1]} $year';
+
+    return formattedDate;
+  } else {
+    return 'Fecha no disponible';
   }
 }
