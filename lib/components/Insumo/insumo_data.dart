@@ -4,7 +4,7 @@ import '../../api_config.dart';
 
 // Función para obtener datos de la API
 Future<List<Map<String, dynamic>>> fetchsupplyData() async {
-  final url = Uri.parse('${ApiConfig.baseUrl}/api/Supply');
+  final url = Uri.parse('${ApiConfig.baseUrl}/api/supply');
 
   final response = await http.get(url);
 

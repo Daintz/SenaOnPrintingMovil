@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.senaonprintingmovil">
    <application
-        android:label="senaonprintingmovil"
+        android:label="SENAONPRINTING"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
