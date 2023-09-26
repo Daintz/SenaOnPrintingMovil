@@ -123,16 +123,18 @@ class supplyCard extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12),
-           Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Text(supplyData['name'] ?? 'Nombre no disponible',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-    Text('Tipo de insumo: ${supplyData['supplyType'] ?? 'Tipo no disponible'}'),
-    Text('Tipo de peligrosidad: ${supplyData['sortingWord'] ?? 'Peligrosidad no disponible'}'),
-    Text('Unidad de medida: ${(supplyData['unitMeasuresXSupply'].map((uxs) => uxs['unitMeasure']['name'])).join(', ') }'),
-  ],
-),
+           SingleChildScrollView(
+             child: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Text(supplyData['name'] ?? 'Nombre no disponible',
+                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+               Text('Tipo de insumo: ${supplyData['supplyType'] ?? 'Tipo no disponible'}'),
+               Text('Tipo de peligrosidad: ${supplyData['sortingWord'] ?? 'Peligrosidad no disponible'}'),
+               Text('Unidad de medida: ${(supplyData['unitMeasuresXSupply'].map((uxs) => uxs['unitMeasure']['name'])).join(', ') }'),
+             ],
+           ),
+           ),
 
 
           ],

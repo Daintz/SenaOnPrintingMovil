@@ -1,4 +1,4 @@
 class ApiConfig {
-  static const String baseUrl ='https://senaonprinting.azurewebsites.net';
+  static const String baseUrl ='https://senaonprintingapi.azurewebsites.net';
 }
 

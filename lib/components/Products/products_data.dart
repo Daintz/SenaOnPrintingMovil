@@ -5,7 +5,7 @@ import '../../api_config.dart';
 Future<List<Map<String, dynamic>>> fetchProductData() async {
   final url = Uri.parse('${ApiConfig.baseUrl}/api/product');
 
-  final response = await http.get(url);
+  final response = await http.get(url,);
 
   if (response.statusCode == 200) {
     final List<dynamic> jsonData = json.decode(response.body);

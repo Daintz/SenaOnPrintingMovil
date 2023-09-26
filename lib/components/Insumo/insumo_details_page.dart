@@ -36,20 +36,23 @@ class InsumosDetailPage extends StatelessWidget {
   }
 
 Widget _buildDetailRow(String label, String value) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label + ':',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(value),
-          ],
-        ),
-        Divider(), // Add a divider between rows
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label + ':',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(value),
+            ],
+          ),
+          Divider(), // Add a divider between rows
+        ],
+      ),
     );
   }
 }
