@@ -1,12 +1,16 @@
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../api_config.dart';
 
 // Función para obtener datos de la API
 Future<List<Map<String, dynamic>>> fetchQuotationData() async {
   final url = Uri.parse('${ApiConfig.baseUrl}/api/QuotationClient');
-
-  final response = await http.get(url);
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? authToken = prefs.getString('authToken');
+  final response = await http.get(url,headers: {
+      'Authorization': 'Bearer  $authToken', // Agregar el token al encabezado de autorización
+    },);
 
   if (response.statusCode == 200) {
     final List<dynamic> jsonData = json.decode(response.body);

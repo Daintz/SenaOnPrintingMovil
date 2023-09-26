@@ -116,18 +116,37 @@ class ClientCard extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(clientData['name'],
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                Text('Teléfono: ${clientData['phone']}'),
-                Text('Correo: ${clientData['email']}'),
-                Text('Centro: ${clientData['center']}'),
-              ],
+            Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      clientData['name'],
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                    ),
+                    Text('Teléfono: ${clientData['phone']}'),
+                    Text(
+                      'Correo: ',
+                      style: TextStyle( fontSize: 16.0),
+                    ),
+                    Text(
+                      clientData['email'],
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    Text(
+                      'Centro: ',
+                      style: TextStyle( fontSize: 16.0),
+                    ),
+                    Text(
+                      clientData['center'],
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  ],
+                ),
             ),
-          ],
+        )],
         ),
       ),
     );

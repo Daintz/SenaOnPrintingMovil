@@ -146,18 +146,20 @@ class orderProductionCard extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  orderProductionData['product'] ?? 'Producto no disponible',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                ),
-                Text('${statusInfo['text']}',style: TextStyle(color: statusInfo['color'], fontWeight: FontWeight.bold)),
-                Text('Fecha de orden: ${orderProductionData['orderDate']}'),
-                Text('Fecha entrega: ${orderProductionData['deliverDate']}'),
-                Text('Observaciones: ${orderProductionData['observations']}'),
-              ],
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    orderProductionData['product'] ?? 'Producto no disponible',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  ),
+                  Text('${statusInfo['text']}',style: TextStyle(color: statusInfo['color'], fontWeight: FontWeight.bold)),
+                  Text('Fecha de orden: ${orderProductionData['orderDate']}'),
+                  Text('Fecha entrega: ${orderProductionData['deliverDate']}'),
+                  Text('Observaciones: ${orderProductionData['observations']}'),
+                ],
+              ),
             ),
           ],
         ),

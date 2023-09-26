@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.1.14
   webview_flutter: ^2.0.13
   intl: ^0.18.1
+  shared_preferences: ^2.2.1
 
 dev_dependencies:
   flutter_test:

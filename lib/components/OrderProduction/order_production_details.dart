@@ -17,35 +17,36 @@ class OrderProductionDetailsPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildDetailRow('Producto', orderProductionData['product']?? 'Producto no disponible',),
-              _buildDetailRow('Fecha de orden', orderProductionData['orderDate']?? 'Fecha no disponible',),
-              _buildDetailRow('Fecha entrega', orderProductionData['deliverDate']?? 'Fecha no disponible',),
-              _buildDetailRow('Encargado', orderProductionData['userName']?? 'Encargado no disponible',),
-              _buildDetailRow('Cliente', orderProductionData['name']?? 'Cliente no disponible',),
-              _buildDetailRow('Tipo de servicio', orderProductionData['typeService']?? 'Tipo de servicio no disponible',),
-              _buildDetailRow('Maquina', orderProductionData['machineName']?? 'Maquina no disponible',),
-              _buildDetailRow('Recepción Material', orderProductionData['materialReception']?? 'Recepción no disponible',),
-              _buildDetailRow('Programa', orderProductionData['program']?? 'Programa no disponible',),
-              _buildDetailRow('Versión Programa', orderProductionData['programVersion']?? 'Versión no disponible',),
-              _buildDetailRow('Lineatura', orderProductionData['lineature']?? 'Lineatura no disponible',),
-              _buildDetailRow('Perfil de color', orderProductionData['colorProfile']?? 'Perfil de color no disponible',),
-      
-              _buildDetailRow('Observaciones', orderProductionData['observations']),
-               SizedBox(height: 16),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      _buildDetailRowWithImage('Imagen', orderProductionData['image']),
-                      SizedBox(width: 16),
-                      _buildDetailRowWithImage('Esquema', orderProductionData['scheme']),
-                    ],
-                  ),
-                )
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailRow('Producto', orderProductionData['product']?? 'Producto no disponible',),
+                _buildDetailRow('Fecha de orden', orderProductionData['orderDate']?? 'Fecha no disponible',),
+                _buildDetailRow('Fecha entrega', orderProductionData['deliverDate']?? 'Fecha no disponible',),
+                _buildDetailRow('Encargado', orderProductionData['userName']?? 'Encargado no disponible',),
+                _buildDetailRow('Cliente', orderProductionData['name']?? 'Cliente no disponible',),
+                _buildDetailRow('Tipo de servicio', orderProductionData['typeService']?? 'Tipo de servicio no disponible',),
+                _buildDetailRow('Maquina', orderProductionData['machineName']?? 'Maquina no disponible',),
+                _buildDetailRow('Recepción Material', orderProductionData['materialReception']?? 'Recepción no disponible',),
+                _buildDetailRow('Programa', orderProductionData['program']?? 'Programa no disponible',),
+                _buildDetailRow('Versión Programa', orderProductionData['programVersion']?? 'Versión no disponible',),
+                _buildDetailRow('Lineatura', orderProductionData['lineature']?? 'Lineatura no disponible',),
+                _buildDetailRow('Perfil de color', orderProductionData['colorProfile']?? 'Perfil de color no disponible',),
+                _buildDetailRow('Observaciones', orderProductionData['observations']?? 'No disponibles'),
+                 SizedBox(height: 16),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        _buildDetailRowWithImage('Imagen', orderProductionData['image']),
+                        SizedBox(width: 16),
+                        _buildDetailRowWithImage('Esquema', orderProductionData['scheme']),
+                      ],
+                    ),
+                  )
+              ],
+            ),
           ),
         ),
       ),
@@ -53,20 +54,22 @@ class OrderProductionDetailsPage extends StatelessWidget {
   }
 
   Widget _buildDetailRow(String label, String value) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label + ':',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(value),
-          ],
-        ),
-        Divider(), // Add a divider between rows
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label + ':',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(value),
+            ],
+          ),
+          Divider(), // Add a divider between rows
+        ],
+      ),
     );
   }
 }

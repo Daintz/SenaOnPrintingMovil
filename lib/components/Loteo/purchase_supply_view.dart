@@ -99,6 +99,7 @@ class supplyCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: 6,
@@ -118,15 +119,30 @@ class supplyCard extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12),
-            Column(
+            SingleChildScrollView(
+              child: Expanded(
+                child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Descripción: ${compraInsumosData['description']}',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                Text('Fecha entrada: ${compraInsumosData['entryDate']}'),
-                Text('Proveedor: ${compraInsumosData['provider']['nameCompany'] ?? 'Proveedor no disponible'}'),
+                Text(
+                  compraInsumosData['description'],
+                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
+                ),
+                 Text(
+                      'Fecha entrada: ${compraInsumosData['entryDate']}',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                Text(
+                  'Proveedor: ',
+                  style: TextStyle( fontSize: 16.0),
+                ),
+                Text(
+                  compraInsumosData['provider']['nameCompany'] ?? 'Proveedor no disponible',
+                  style: TextStyle(fontSize: 16.0),
+                ),
               ],
+            ),
+              ),
             ),
           ],
         ),
@@ -134,3 +150,4 @@ class supplyCard extends StatelessWidget {
     );
   }
 }
+
