@@ -42,7 +42,7 @@ class _supplysDetailsViewState extends State<supplysDetailsView> {
             return Center(child: Text('Error al cargar los datos'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             // Muestra un mensaje si no hay datos disponibles
-            return Center(child: Text('No se encontraron supplyes'));
+            return Center(child: Text('No se encontraron compras de insumos registradas'));
           } else {
             // Muestra la lista de supplyes obtenida de la API
             final compraInsumosData = snapshot.data!;
@@ -70,7 +70,7 @@ class _supplysDetailsViewState extends State<supplysDetailsView> {
         await compraInsumosData; // Esperar a que compraInsumosData se resuelva
     showModalBottomSheet(
       context: context,
-      builder: (context) => compraInsumossDetailPage(
+      builder: (context) => CompraInsumosDetailPage(
         compraInsumosData: data[index],
       ),
     );
@@ -99,6 +99,7 @@ class supplyCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: 6,
@@ -113,21 +114,35 @@ class supplyCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.person_rounded,
+                Icons.shopping_cart_rounded,
                 size: 56,
               ),
             ),
             SizedBox(width: 12),
-            Column(
+            SingleChildScrollView(
+              child: Expanded(
+                child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Bodega: ${compraInsumosData['warehouseId']}',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                Text('Fecha entrada: ${compraInsumosData['entryDate']}'),
                 Text(
-                    'Fecha vencimiento: ${compraInsumosData['expirationDate']}'),
+                  compraInsumosData['description'],
+                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),
+                ),
+                 Text(
+                      'Fecha entrada: ${compraInsumosData['entryDate']}',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                Text(
+                  'Proveedor: ',
+                  style: TextStyle( fontSize: 16.0),
+                ),
+                Text(
+                  compraInsumosData['provider']['nameCompany'] ?? 'Proveedor no disponible',
+                  style: TextStyle(fontSize: 16.0),
+                ),
               ],
+            ),
+              ),
             ),
           ],
         ),
@@ -135,3 +150,4 @@ class supplyCard extends StatelessWidget {
     );
   }
 }
+

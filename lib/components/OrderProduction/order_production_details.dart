@@ -14,45 +14,60 @@ class OrderProductionDetailsPage extends StatelessWidget {
         title: Text('Detalle Orden de Producción'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildDetailRow('producto', orderProductionData['product']?? 'Producto no disponible',),
-            _buildDetailRow('Fecha de orden', orderProductionData['orderDate']?? 'Fecha no disponible',),
-            _buildDetailRow('Fecha entrega', orderProductionData['deliverDate']?? 'Fecha no disponible',),
-            _buildDetailRow('Encargado', orderProductionData['userId']?? 'Encargado no disponible',),
-            _buildDetailRow('Maquina', orderProductionData['machineId']?? 'Maquina no disponible',),
-            _buildDetailRow('Observaciones', orderProductionData['observations']),
-             SizedBox(height: 16),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _buildDetailRowWithImage('Imagen', orderProductionData['image']),
-                    SizedBox(width: 16),
-                    _buildDetailRowWithImage('Esquema', orderProductionData['scheme']),
-                  ],
-                ),
-              )
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailRow('Producto', orderProductionData['product']?? 'Producto no disponible',),
+                _buildDetailRow('Fecha de orden', orderProductionData['orderDate']?? 'Fecha no disponible',),
+                _buildDetailRow('Fecha entrega', orderProductionData['deliverDate']?? 'Fecha no disponible',),
+                _buildDetailRow('Encargado', orderProductionData['userName']?? 'Encargado no disponible',),
+                _buildDetailRow('Cliente', orderProductionData['name']?? 'Cliente no disponible',),
+                _buildDetailRow('Tipo de servicio', orderProductionData['typeService']?? 'Tipo de servicio no disponible',),
+                _buildDetailRow('Maquina', orderProductionData['machineName']?? 'Maquina no disponible',),
+                _buildDetailRow('Recepción Material', orderProductionData['materialReception']?? 'Recepción no disponible',),
+                _buildDetailRow('Programa', orderProductionData['program']?? 'Programa no disponible',),
+                _buildDetailRow('Versión Programa', orderProductionData['programVersion']?? 'Versión no disponible',),
+                _buildDetailRow('Lineatura', orderProductionData['lineature']?? 'Lineatura no disponible',),
+                _buildDetailRow('Perfil de color', orderProductionData['colorProfile']?? 'Perfil de color no disponible',),
+                _buildDetailRow('Observaciones', orderProductionData['observations']?? 'No disponibles'),
+                 SizedBox(height: 16),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        _buildDetailRowWithImage('Imagen', orderProductionData['image']),
+                        SizedBox(width: 16),
+                        _buildDetailRowWithImage('Esquema', orderProductionData['scheme']),
+                      ],
+                    ),
+                  )
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
   Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SingleChildScrollView(
+      child: Column(
         children: [
-          Text(
-            label + ':',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label + ':',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(value),
+            ],
           ),
-          Text(value),
+          Divider(), // Add a divider between rows
         ],
       ),
     );
@@ -60,21 +75,6 @@ class OrderProductionDetailsPage extends StatelessWidget {
 }
 
 
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label + ':',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(value),
-        ],
-      ),
-    );
-  }
 
   Widget _buildDetailRowWithImage(String label, String imageUrl) {
     return Column(

@@ -26,27 +26,31 @@ class InsumosDetailPage extends StatelessWidget {
             _buildDetailRow('Tipo de insumo', '${insumoData['supplyType']}'),
             _buildDetailRow('Tipo de peligrosidad', '${insumoData['sortingWord']}'),
             _buildDetailRow('Costo Promedio', '${insumoData['averageCost']}'),
-            _buildDetailRow('Unidad de medida', '${insumoData['unitMeasuresId']}'),
-            _buildDetailRow('Pictograma', '${insumoData['supplyPictogramsId']}'),
-            _buildDetailRow('Categoría de insumos', '${insumoData['supplyCategoriesId']}'),
-            _buildDetailRow('Estado', '${insumoData['statedAt']}'),
+            _buildDetailRow('Unidad de medida:','${(insumoData['unitMeasuresXSupply'].map((uxs) => uxs['unitMeasure']['name'])).join(', ') }'),
+            _buildDetailRow('Pictograma:','${(insumoData['supplyXSupplyPictogram'].map((uxs) => uxs['supplyPictogram']['name'])).join(', ') }'),
+            _buildDetailRow('Categoria Insumo:','${(insumoData['supplyCategoriesXSupply'].map((uxs) => uxs['supplyCategoryNavigation']['name'])).join(', ') }'),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+Widget _buildDetailRow(String label, String value) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
         children: [
-          Text(
-            label + ':',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label + ':',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(value),
+            ],
           ),
-          Text(value),
+          Divider(), // Add a divider between rows
         ],
       ),
     );

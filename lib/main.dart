@@ -7,8 +7,11 @@ import 'package:senaonprintingmovil/components/Quotation/quotation_view.dart';
 import 'package:senaonprintingmovil/components/Client/clients_view.dart';
 import 'components/Products/products_view.dart';
 import 'login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
 

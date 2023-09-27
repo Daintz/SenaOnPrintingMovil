@@ -84,8 +84,38 @@ class orderProductionCard extends StatelessWidget {
     required this.onTap,
   });
 
+  // Function to map the orderStatus value to text and color
+  Map<String, dynamic> getStatusTextAndColor(int value) {
+    String statusText;
+    Color statusColor;
+
+    switch (value) {
+      case 2:
+        statusText = 'Preimpresion';
+        statusColor = Colors.orange;
+        break;
+      case 3:
+        statusText = 'Impresión';
+        statusColor = Color.fromARGB(250, 255, 230, 2);
+        break;
+      case 4:
+        statusText = 'Postimpresión';
+        statusColor = Colors.lightBlue;
+        break;
+      default:
+        statusText = 'Terminado';
+        statusColor = Colors.blue;
+        break;
+    }
+
+    return {'text': statusText, 'color': statusColor};
+  }
+
   @override
   Widget build(BuildContext context) {
+    final int orderStatus = orderProductionData['orderStatus'] ?? 0;
+    final statusInfo = getStatusTextAndColor(orderStatus);
+
     bool statedAt = orderProductionData['statedAt'];
 
     return Card(
@@ -111,22 +141,25 @@ class orderProductionCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.person_rounded,
+                Icons.checklist_rtl_outlined,
                 size: 56,
               ),
             ),
             SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(orderProductionData['product']?? 'Producto no disponible',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                Text('Fecha de orden: ${orderProductionData['orderDate']}'),
-              Text('Fecha entrega: ${orderProductionData['deliverDate']}'),
-              Text('Maquina: ${orderProductionData['machineId']}'),
-              Text('Observaciones: ${orderProductionData['observations']}'),
-              ],
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    orderProductionData['product'] ?? 'Producto no disponible',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  ),
+                  Text('${statusInfo['text']}',style: TextStyle(color: statusInfo['color'], fontWeight: FontWeight.bold)),
+                  Text('Fecha de orden: ${orderProductionData['orderDate']}'),
+                  Text('Fecha entrega: ${orderProductionData['deliverDate']}'),
+                  Text('Observaciones: ${orderProductionData['observations']}'),
+                ],
+              ),
             ),
           ],
         ),
@@ -134,3 +167,4 @@ class orderProductionCard extends StatelessWidget {
     );
   }
 }
+

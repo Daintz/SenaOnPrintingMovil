@@ -31,23 +31,25 @@ class OrderProductionDetailsPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildDetailRow('Cliente', client),
-                _buildDetailRow('Producto', product),
-              ],
-            ),
-            _buildDetailRow('Fecha entrega', deliveryDate),
-            _buildDetailRow('Proceso', process),
-            _buildDetailRow('Tipo de servicio', typeService),
-            _buildDetailRow('Estado', statedAt),
-            _buildDetailRowWithImage('Imagen', image),
-            SizedBox(height: 16),
-            _buildDetailRowWithImage('Esquema', scheme),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildDetailRow('Cliente', client),
+                  _buildDetailRow('Producto', product),
+                ],
+              ),
+              _buildDetailRow('Fecha entrega', deliveryDate),
+              _buildDetailRow('Proceso', process),
+              _buildDetailRow('Tipo de servicio', typeService),
+              _buildDetailRow('Estado', statedAt),
+              _buildDetailRowWithImage('Imagen', image),
+              SizedBox(height: 16),
+              _buildDetailRowWithImage('Esquema', scheme),
+            ],
+          ),
         ),
       ),
     );

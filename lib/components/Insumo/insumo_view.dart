@@ -52,7 +52,9 @@ class _supplysViewState extends State<supplysView> {
                 children: List.generate(
                   supplyData.length,
                   (index) => supplyCard(
+                    ums: [],
                     supplyData: supplyData[index],
+                    index: index,
                     onTap: () {
                       _showsupplyDetails(context, index);
                     },
@@ -77,12 +79,16 @@ class _supplysViewState extends State<supplysView> {
 }
 }
 class supplyCard extends StatelessWidget {
+  final List<String> ums;
   final Map<String, dynamic> supplyData;
+  final int index; // Agrega el índice como argumento
   final VoidCallback onTap;
 
   supplyCard({
     required this.supplyData,
     required this.onTap,
+    required this.index,
+    required this.ums
   });
 
   @override
@@ -112,22 +118,25 @@ class supplyCard extends StatelessWidget {
                 color: Colors.grey[300],
               ),
               child: Icon(
-                Icons.person_rounded,
+                Icons.adf_scanner_rounded,
                 size: 56,
               ),
             ),
             SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(supplyData['name'],
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
-                Text('Tipo de insumo: ${supplyData['supplyType']}'),
-                Text('Tipo de peligrosidad: ${supplyData['sortingWord']}'),
+           SingleChildScrollView(
+             child: Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Text(supplyData['name'] ?? 'Nombre no disponible',
+                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0)),
+               Text('Tipo de insumo: ${supplyData['supplyType'] ?? 'Tipo no disponible'}'),
+               Text('Tipo de peligrosidad: ${supplyData['sortingWord'] ?? 'Peligrosidad no disponible'}'),
+               Text('Unidad de medida: ${(supplyData['unitMeasuresXSupply'].map((uxs) => uxs['unitMeasure']['name'])).join(', ') }'),
+             ],
+           ),
+           ),
 
-              ],
-            ),
+
           ],
         ),
       ),

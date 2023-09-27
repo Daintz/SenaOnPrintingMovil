@@ -14,37 +14,42 @@ class ClientDetailsPage extends StatelessWidget {
         title: Text('Detalles del Cliente'),
         backgroundColor: Color.fromARGB(255, 0, 49, 77),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildDetailRow('Nombre', clientData['name']),
-            _buildDetailRow('Teléfono', clientData['phone']),
-            _buildDetailRow('Correo electrónico', clientData['email']),
-            _buildDetailRow('Centro', clientData['center']),
-            _buildDetailRow('Área', clientData['area']),
-            _buildDetailRow('Regional', clientData['regional']),
-            
-          ],
+      body: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildDetailRow('Nombre', clientData['name']),
+              _buildDetailRow('Teléfono', clientData['phone']),
+              _buildDetailRow('Correo electrónico', clientData['email']),
+              _buildDetailRow('Centro', clientData['center']),
+              _buildDetailRow('Área', clientData['area']),
+              _buildDetailRow('Regional', clientData['regional']),
+
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label + ':',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(value),
-        ],
-      ),
+ Widget _buildDetailRow(String label, String value) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label + ':',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(value),
+          ],
+        ),
+        Divider(), // Add a divider between rows
+      ],
     );
   }
 }

@@ -1,12 +1,16 @@
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../api_config.dart';
 
 // Función para obtener datos de la API
 Future<List<Map<String, dynamic>>> fetchsupplyData() async {
-  final url = Uri.parse('${ApiConfig.baseUrl}/api/Supply');
-
-  final response = await http.get(url);
+  final url = Uri.parse('${ApiConfig.baseUrl}/api/supply');
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? authToken = prefs.getString('authToken');
+  final response = await http.get(url, headers: {
+      'Authorization': 'Bearer  $authToken', // Agregar el token al encabezado de autorización
+    },);
 
   if (response.statusCode == 200) {
     final List<dynamic> jsonData = json.decode(response.body);
@@ -26,7 +30,9 @@ Future<List<Map<String, dynamic>>> fetchsupplyData() async {
         'averageCost': supply['averageCost'],
         'unitMeasuresId': supply['unitMeasuresId'],
         'supplyPictogramsId': supply['supplyPictogramsId'],
-        'supplyCategoriesId': supply['supplyCategoriesId'],
+        'supplyCategoriesXSupply':supply['supplyCategoriesXSupply'],
+        'supplyXSupplyPictogram': supply['supplyXSupplyPictogram'],
+        'unitMeasuresXSupply': supply['unitMeasuresXSupply'],
       });
     }
 
